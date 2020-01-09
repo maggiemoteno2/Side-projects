@@ -12,7 +12,7 @@ export default class Buttons extends Component {
     render() {
         console.log(pads)
         return (
-            <div className="button">
+            <div className="container">
             {pads.map(sound=>(
             <button style={{background: sound.color}}
             onClick={()=> this.playSound(sound.url)}>

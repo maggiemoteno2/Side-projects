@@ -1,6 +1,13 @@
 
-.button>button{
-  width: 90px;
-  height: 40px;
-
+button{
+  width: 80px;
+  height: 20px;
+ 
+}
+.container{
+  display: grid;
+  grid-template-columns: repeat(2 , 1fr);
+  justify-self: start;
+  height:0px;
+  width:0;
 }
