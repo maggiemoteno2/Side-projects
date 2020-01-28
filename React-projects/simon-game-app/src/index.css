@@ -2,12 +2,25 @@
 button{
   width: 80px;
   height: 20px;
+  display: inline-block;
+  padding: 15px 25px;
+  font-size: 24px;
+  cursor: pointer;
+  text-decoration: none;
+  outline: none;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 9px #999;
  
 }
+
 .container{
   display: grid;
   grid-template-columns: repeat(2 , 1fr);
   justify-self: start;
   height:0px;
-  width:0;
+  width:0px;
+  margin:40vh 0px 20vh 80vh;
+  grid-gap: 10px;
+
 }
