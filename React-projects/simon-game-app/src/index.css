@@ -1,5 +1,5 @@
 
-button{
+.buttons{
   width: 80px;
   height: 20px;
   display: inline-block;
@@ -14,13 +14,39 @@ button{
  
 }
 
-.container{
+.button-container{
   display: grid;
   grid-template-columns: repeat(2 , 1fr);
-  justify-self: start;
-  height:0px;
-  width:0px;
-  margin:40vh 0px 20vh 80vh;
   grid-gap: 10px;
+  margin: 40vh 0px 20vh 80vh;
+  justify-self: start;
+  height: 0px;
+  width: 0px;
+}
 
+.wrapper{
+  display : flex;
+  grid-template-columns: repeat(3 , 20px);
+  grid-gap: 8px;
+  /* margin-left: 10vh; */
+  margin: -10vh 0px 0vh 80vh; 
+  /* margin-left: 80vh; */
+  
+}
+.Power{
+  margin-top: 15px;
+}
+.Strict{
+  margin-top: 15px;
+}
+.controls{
+  margin: -3vh 0px 0px 88vh;
+}
+.counter{
+  background-color:lightgray;
+  height:5vh;
+  width:10vh;
+  text-align: center;
+  padding-top: 15px;
+  /* margin-left: -15vh; */
 }

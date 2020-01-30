@@ -1,67 +1,119 @@
 import React, { Component } from "react";
 import { initalPads } from "./Sounds";
 
-
 export default class Buttons extends Component {
   constructor(props) {
     super(props);
     this.state = {
       pads: initalPads,
-      computerMoves : [1,1,2,3,0],
-      playersMoves:[]
+      computerMoves: [],
+      playersMoves: [],
+      on: false,
+      counter: 0,
+      strict:false,
+      win:true,
+      computureTurn:false
     };
   }
 
-playersTurn=()=>{
-  const {playersMoves,pads}=this.state
-playersMoves.push(pads)
-console.log("asjfdk",pads[0].color)
-}
+  playersTurn = sound => {
+    const { playersMoves } = this.state;
+    var array = playersMoves;
+    var pressedButton = sound.id;
+    array.push(pressedButton);
+
+    console.log("asjfdk", array);
+  };
 
   playSound = url => {
     let sound = new Audio(url);
     return sound.play();
   };
 
-  startButton=()=> {
-    const { pads , computerMoves } = this.state;
+  on=()=>{
+    this.setState({
+      on: !this.state.on,
+      computureTurn:!this.state.computureTurn
+    })
 
-    var i = 0;
-    var newPads = JSON.parse(JSON.stringify(this.state.pads));
-    var interval = setInterval(() => {
-      var index = i;
-      pads[computerMoves[index]].color = "white";
-      console.log("check out random color moves",pads[computerMoves[index]].color)
-      
-
-      this.setState({ pads });
-      setTimeout(() => {
-        pads[computerMoves[index]].color = newPads[computerMoves[index]].color;
-
-        this.setState({
-          pads: newPads
-        });
-      }, 500);
-
-      if (index == 4) {
-        clearInterval(interval);
-      }
-
-      i++;
-    }, 1000);
+    // console.log("swa",this.state.on)
+  }
+  strictBox=()=>{
+    // console.log("checked")
+    
   }
 
+  play = () => {
+    const { pads, computerMoves , computureTurn} = this.state;
+    if(this.state.on || computureTurn){
+
+      for(var i =0; i<20;i++){
+        computerMoves.push(Math.floor(Math.random()* 4)+1)
+        // console.log(computerMoves)
+        
+      }
+      var i = 0;
+      var newPads = JSON.parse(JSON.stringify(pads));
+      var interval = setInterval(() => {
+        var index = i;
+        pads[computerMoves].color = "white";
+        console.log("check out random color moves", pads[computerMoves].color);
+  
+        this.setState({ pads });
+        setTimeout(() => {
+          pads[computerMoves].color = newPads[computerMoves].color;
+          computerMoves.push(pads[index].id);
+          // console.log("pads", computerMoves);
+  
+          this.setState({
+            pads: newPads
+          });
+        }, 500);
+  
+        if (computerMoves == 20) {
+          clearInterval(interval);
+        }
+  
+        i++;
+      }, 1000);
+    }
+  };
+
+  startButton = () => {
+    this.play();
+  };
+
   render() {
+    const { counter } = this.state;
     return (
       <div className="onButton">
         <div className="container">
+          <div className="button-container">
           {this.state.pads.map(sound => (
-            <button
+            <button className="buttons"
               style={{ background: sound.color }}
-              onClick={this.playersTurn}
+              onClick={() => this.playersTurn(sound)}
             ></button>
           ))}
-          <button onClick={()=>this.startButton()}>Start</button>
+          </div>
+          <br/>
+          <div className="wrapper">
+            <div className="Power">
+              Power:
+              <input type="checkbox" onChange={this.on} />
+            </div>
+            <br/>
+            <div className="counter">{counter}</div>
+            <br/>
+            <div className="Strict">
+              Strict:<input type="checkbox" onChange={this.strictBox} />
+            </div>
+          </div>
+          <br/>
+          <div className="controls">
+          <button onClick={() => this.startButton()}>Start</button>
+            <button>Reset</button>
+            </div>
         </div>
       </div>
     );
