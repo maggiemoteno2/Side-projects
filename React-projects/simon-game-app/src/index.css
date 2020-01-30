@@ -1,4 +1,7 @@
 
+body{
+  background-color: #191970;
+}
 .buttons{
   width: 80px;
   height: 20px;
@@ -10,7 +13,7 @@
   outline: none;
   border: none;
   border-radius: 10px;
-  box-shadow: 0 9px #999;
+  
  
 }
 
@@ -35,12 +38,15 @@
 }
 .Power{
   margin-top: 15px;
+  font-family: 'Rokkitt', serif;
+  color:white;
 }
 .Strict{
   margin-top: 15px;
+  color:white;
 }
 .controls{
-  margin: -3vh 0px 0px 88vh;
+  margin: 0px 0px 0px 88vh;
 }
 .counter{
   background-color:lightgray;
@@ -49,4 +55,16 @@
   text-align: center;
   padding-top: 15px;
   /* margin-left: -15vh; */
+}
+#header{
+  background: red;
+    background: -webkit-linear-gradient(left, orange , yellow, rgb(170, 31, 6), cyan, blue, violet);
+    background: -o-linear-gradient(right, orange, yellow, rgb(236, 33, 7), cyan, blue, violet);
+    background: -moz-linear-gradient(right, orange, yellow, rgb(240, 33, 18), cyan, blue, violet);
+    background: linear-gradient(to right, orange , yellow, rgb(248, 30, 15), cyan, blue, violet);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 40px;
+    text-align: center;
+    font-family: 'Fredoka One', cursive;
 }

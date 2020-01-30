@@ -49,28 +49,30 @@ export default class Buttons extends Component {
 
       for(var i =0; i<20;i++){
         computerMoves.push(Math.floor(Math.random()* 4)+1)
-        // console.log(computerMoves)
+        console.log("random moves",computerMoves)
         
       }
-      var i = 0;
+      var i = computerMoves[0];
+      console.log("checking",i)
       var newPads = JSON.parse(JSON.stringify(pads));
       var interval = setInterval(() => {
         var index = i;
-        pads[computerMoves].color = "white";
-        console.log("check out random color moves", pads[computerMoves].color);
+        pads[index].color = "white";
+        console.log("check out random color moves", pads[index].color);
   
         this.setState({ pads });
         setTimeout(() => {
-          pads[computerMoves].color = newPads[computerMoves].color;
+          pads[index].color = newPads[index].color;
           computerMoves.push(pads[index].id);
-          // console.log("pads", computerMoves);
+          console.log("pads", index);
   
           this.setState({
             pads: newPads
           });
         }, 500);
   
-        if (computerMoves == 20) {
+        if (index == index.length) {
+          console.log("gsdf",index.length)
           clearInterval(interval);
         }
   
@@ -87,6 +89,7 @@ export default class Buttons extends Component {
     const { counter } = this.state;
     return (
       <div className="onButton">
+      <header id='header'>Simon game</header>
         <div className="container">
           <div className="button-container">
           {this.state.pads.map(sound => (
