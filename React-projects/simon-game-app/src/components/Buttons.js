@@ -48,7 +48,7 @@ export default class Buttons extends Component {
     if(this.state.on || computureTurn){
 
       for(var i =0; i<20;i++){
-        computerMoves.push(Math.floor(Math.random()* 4)+1)
+        computerMoves.push(Math.floor(Math.random()* 4))
         console.log("random moves",computerMoves)
         
       }
@@ -71,8 +71,8 @@ export default class Buttons extends Component {
           });
         }, 500);
   
-        if (index == index.length) {
-          console.log("gsdf",index.length)
+        if (index == 3) {
+          console.log("gsdf",index)
           clearInterval(interval);
         }
   
