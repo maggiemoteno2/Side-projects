@@ -12,17 +12,14 @@ class Controllers extends Component {
     };
   }
 
-  componentDidMount(){
-    this.setState({buttons:initalPads})
+  componentDidMount() {
+    this.setState({ buttons: initalPads });
   }
   flickButtons = id => {
     const { buttons } = this.state;
     var index = buttons.findIndex(sound => sound.id == id);
-    console.log('sound',buttons[index].id)
-    console.log(index)
-    console.log(this.state.flash)
-    if (this.state.flash.id == id) {
-      // console.log({index})
+    console.log("check",id)
+    if (id == id) {
       document.getElementById(id).style.background = "white";
       setTimeout(() => {
         document.getElementById(id).style.background = buttons[index].color;
@@ -32,11 +29,8 @@ class Controllers extends Component {
 
   playOneSound = (e, url) => {
     var sound = new Audio(url);
-    this.setState(
-      { flash: { id: e.target.id, state: true } },
-      this.flickButtons(e.target.id)
-    );
-
+    this.setState({ flash: { id: e.target.id, state: true } });
+    this.flickButtons(e.target.id);
     return sound.play();
   };
 
@@ -53,7 +47,7 @@ class Controllers extends Component {
           <div className="button-container">
             {this.state.buttons.map(sound => (
               <button
-                id ={sound.id}
+                id={sound.id}
                 onClick={e => this.playOneSound(e, sound.url)}
                 className="buttons"
                 style={{ background: sound.color }}
