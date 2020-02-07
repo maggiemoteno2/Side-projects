@@ -4,11 +4,14 @@ import { initalPads } from "./Audio";
 class Controllers extends Component {
   constructor() {
     super();
-
+    
     this.state = {
       counter: 0,
       buttons: [],
-      flash: {}
+      flash: {},
+      computerMoves:[],
+      playersMoves:[],
+      randomButtons: initalPads
     };
   }
 
@@ -16,16 +19,24 @@ class Controllers extends Component {
     this.setState({ buttons: initalPads });
   }
   flickButtons = id => {
-    const { buttons } = this.state;
+    console.log("refs",this.refs)
+    const { buttons,playersMoves } = this.state;
     var index = buttons.findIndex(sound => sound.id == id);
-    console.log("check",id)
-    if (id == id) {
-      document.getElementById(id).style.background = "white";
+    playersMoves.push(index)
+    console.log("players Moves",playersMoves)
+    if (id === id) {
+        this.refs[id].style.background="white"
+        // document.getElementById(id).style.background = buttons[index].color;
       setTimeout(() => {
-        document.getElementById(id).style.background = buttons[index].color;
+        this.refs[id].style.background=buttons[index].color
+        // document.getElementById(id).style.background = buttons[index].color;
       }, 300);
     }
   };
+
+  RandomFickButtons=()=>{
+    
+  }
 
   playOneSound = (e, url) => {
     var sound = new Audio(url);
@@ -34,8 +45,24 @@ class Controllers extends Component {
     return sound.play();
   };
 
-  playCombinationOfSounds = sound => {
-    // let sound= new Audio(sound.id)
+  playCombinationOfSounds =(id) => {
+    const { randomButtons,buttons,computerMoves } = this.state;
+    for (let index = 0; index < 4; index++) {
+      this.refs[id].style.background="white"
+
+      this.setState({randomButtons });
+      setTimeout(() => {
+        this.refs[id].style.background = buttons[index].color;
+        computerMoves.push(buttons[index].id);
+        console.log("play combo",buttons[index].color)
+
+        // this.setState({
+        //   randomButtons: newPads
+        // });
+      }, 500);
+      
+    }
+   
   };
 
   render() {
@@ -47,6 +74,7 @@ class Controllers extends Component {
           <div className="button-container">
             {this.state.buttons.map(sound => (
               <button
+              ref={sound.id}
                 id={sound.id}
                 onClick={e => this.playOneSound(e, sound.url)}
                 className="buttons"
@@ -70,7 +98,7 @@ class Controllers extends Component {
           </div>
           <br />
           <div className="controls">
-            <button>Start</button>
+            <button onClick={ this.playCombinationOfSounds}>Start</button>
             <button>Reset</button>
           </div>
         </div>
