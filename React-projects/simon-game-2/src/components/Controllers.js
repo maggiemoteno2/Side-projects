@@ -1,16 +1,17 @@
 import React, { Component } from "react";
 import { initalPads } from "./Audio";
 
+
 class Controllers extends Component {
   constructor() {
     super();
-    
+
     this.state = {
       counter: 0,
       buttons: [],
       flash: {},
-      computerMoves:[],
-      playersMoves:[],
+      computerMoves: [1 , 2],
+      playersMoves: [],
       randomButtons: initalPads
     };
   }
@@ -19,24 +20,27 @@ class Controllers extends Component {
     this.setState({ buttons: initalPads });
   }
   flickButtons = id => {
-    console.log("refs",this.refs)
-    const { buttons,playersMoves } = this.state;
+    const { buttons, playersMoves , computerMoves } = this.state;
+    console.log('id',  playersMoves.length , computerMoves.length)
     var index = buttons.findIndex(sound => sound.id == id);
-    playersMoves.push(index)
-    console.log("players Moves",playersMoves)
+    playersMoves.push(id);
+    console.log("players Moves", playersMoves);
     if (id === id) {
-        this.refs[id].style.background="white"
-        // document.getElementById(id).style.background = buttons[index].color;
+      this.refs[id].style.background = "white";
+      console.log(computerMoves.join('') , playersMoves.join(""))
       setTimeout(() => {
-        this.refs[id].style.background=buttons[index].color
-        // document.getElementById(id).style.background = buttons[index].color;
+        this.refs[id].style.background = buttons[index].color;
       }, 300);
     }
+    
+    if(playersMoves.length == computerMoves.length &&
+      computerMoves.join('') == playersMoves.join("")){
+        this.playCombinationOfSounds()
+     console.log('win')
+   }
   };
 
-  RandomFickButtons=()=>{
-    
-  }
+  RandomFickButtons = () => {};
 
   playOneSound = (e, url) => {
     var sound = new Audio(url);
@@ -45,24 +49,30 @@ class Controllers extends Component {
     return sound.play();
   };
 
-  playCombinationOfSounds =(id) => {
-    const { randomButtons,buttons,computerMoves } = this.state;
-    for (let index = 0; index < 4; index++) {
-      this.refs[id].style.background="white"
-
-      this.setState({randomButtons });
+  generateRandomMove(){
+    return Math.floor(Math.random() * 4);
+  }
+// this function it doesn't want to run for than once and if u call it in another function it doesn't get executed
+  playCombinationOfSounds() {
+    const { randomButtons, computerMoves } = this.state;
+    var counter = 0;
+    var gameEngine;
+    gameEngine = setInterval(() => {
+      var copyOfButtons = JSON.parse(JSON.stringify(randomButtons));
+      var i = counter;
+      randomButtons[computerMoves[i] - 1].color = "white";
+      this.setState({ randomButtons });
       setTimeout(() => {
-        this.refs[id].style.background = buttons[index].color;
-        computerMoves.push(buttons[index].id);
-        console.log("play combo",buttons[index].color)
-
-        // this.setState({
-        //   randomButtons: newPads
-        // });
+        randomButtons[computerMoves[i] - 1].color = copyOfButtons[computerMoves[i] - 1].color;
+        this.setState({randomButtons : copyOfButtons})
       }, 500);
-      
-    }
-   
+      if(computerMoves.length - 1 == i){
+        clearInterval(gameEngine)
+        return
+      }
+      counter++;
+    }, 1000);
+    
   };
 
   render() {
@@ -74,7 +84,7 @@ class Controllers extends Component {
           <div className="button-container">
             {this.state.buttons.map(sound => (
               <button
-              ref={sound.id}
+                ref={sound.id}
                 id={sound.id}
                 onClick={e => this.playOneSound(e, sound.url)}
                 className="buttons"
@@ -98,7 +108,7 @@ class Controllers extends Component {
           </div>
           <br />
           <div className="controls">
-            <button onClick={ this.playCombinationOfSounds}>Start</button>
+            <button onClick={()=> this.playCombinationOfSounds()}>Start</button>
             <button>Reset</button>
           </div>
         </div>
