@@ -55,29 +55,7 @@ export default class Buttons extends Component {
       var i = computerMoves[0];
       console.log("checking",i)
       var newPads = JSON.parse(JSON.stringify(pads));
-      var interval = setInterval(() => {
-        var index = i;
-        pads[index].color = "white";
-        console.log("check out random color moves", pads[index].color);
-  
-        this.setState({ pads });
-        setTimeout(() => {
-          pads[index].color = newPads[index].color;
-          computerMoves.push(pads[index].id);
-          console.log("pads", index);
-  
-          this.setState({
-            pads: newPads
-          });
-        }, 500);
-  
-        if (index == 3) {
-          console.log("gsdf",index)
-          clearInterval(interval);
-        }
-  
-        i++;
-      }, 1000);
+     
     }
   };
 
